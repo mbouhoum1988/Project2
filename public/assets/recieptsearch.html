@@ -50,7 +50,7 @@
         <form class="search-form text-center">
           <div id="search-form-div">
               <input id="searchRecipe" type="text" class="form-control" />
-              <a id="searchRecipeButton" name="button"><i id="searchIcon"class="glyphicon glyphicon-search pull-right"></i></a>
+              <button id="searchRecipeButton"><a name="button"><i id="searchIcon"class="glyphicon glyphicon-search pull-right"></i></a></button>
           </div>
         </form>
       </div>
@@ -61,7 +61,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div id="results">
+          <div id="results" class="container">
           </div>
         </div>
       </div>
@@ -117,6 +117,49 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+      var searchQuery;
+      $("#searchRecipeButton").on("click", function(event) {
+        event.preventDefault();
+        searchQuery = $("#searchRecipe").val().trim();
+
+        var queryURL = "https://www.food2fork.com/api/search?key=d9faa29a038351288fa1d4a161e74858&q=" + searchQuery;
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          // After data comes back from the request
+          .then(function(response) {
+            console.log(queryURL);
+
+            console.log(response);
+
+            var result = JSON.parse(response);
+
+            console.log(result.recipes);
+
+            $("#results").empty();
+
+            for (var i = 0; i < result.count; i++) {
+              var recipe = result.recipes[i];
+              var recipeRow = $("<div class='row'></div>");
+              recipeRow.append($("<img src='" + recipe.image_url + "' alt='" + recipe.title + "'>"));
+              recipeRow.append($("<a href='" + recipe.source_url + "'>" + recipe.title + "</a>"));
+
+              console.log(recipe);
+              console.log(i);
+
+              $("#results").append(recipeRow);
+            }
+        });
+
+      });
+
+
+
+    </script>
 
 
 
