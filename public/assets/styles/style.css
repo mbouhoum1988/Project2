@@ -747,6 +747,7 @@
   }
   
   .hero .get-it h1{
+    font-family: 'Gloria Hallelujah', cursive;
     color: #000;
     margin-bottom:10px;
     font-weight: 600;
@@ -1045,7 +1046,6 @@
   }
   
   #logo {
-    font-family: 'Special Elite', cursive;
     font-size: 42px;
   }
   
