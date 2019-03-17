@@ -13,6 +13,37 @@
     padding-top:40px;
     color:inherit;
   }
+
+  #results {
+    background: #fff;
+    margin: 20px 0;
+  }
+
+  #shows {
+    display: none;
+    background: whitesmoke;
+    margin: 20px 0;
+    padding: 20px;
+    min-height: 200px;
+  }
+
+  .insertImage {
+    display: flex;
+    width: 120px;
+    height: 80px;
+    margin:10px 10px 10px 30px;
+  }
+  .row {
+    margin:10px 10px 40px 30px;
+  }
+
+  .addbutton {
+    display: block;
+  }
+
+  .mybutton{
+    width: 70%;
+  }
   
   @media (max-width:767px) {
     .features-boxed h2 {
