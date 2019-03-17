@@ -24,16 +24,18 @@ var searchQuery;
               var btn = $("<button class='btn btn-default addbutton'>add to your list</button>")
               var image_url = recipe.image_url;
               var image = $("<img>");
-              image.addClass("insertImage");
+              image.addClass("insertImage keepElement");
               image.attr("src", image_url);
 
-              var name = recipe.title;
+              var name = $("<h5>");
+              name.addClass("title");
+              name.html(recipe.title);
 
               recipeRow.append(name);
               recipeRow.append(image);
               recipeRow.append(
                 $(`
-                <a href="${recipe.source_url}">
+                <a class="keepElement recipeLink" href="${recipe.source_url}">
                   ${recipe.title}
                 </a>
               `));
@@ -46,13 +48,12 @@ var searchQuery;
                 // var addPost = {
                      
                 // };
-
                  var addname = $("<div>");
-                 var title = this.name;
-                 var picture = this.image;
-                 addname.append(title); 
-                 addname.append(picture);
-                 $("#display").append(addname); 
+                 addname.append($(this).parent().children(".title"));
+                 addname.append($(this).parent().children(".insertImage"));
+                 addname.append($(this).parent().children(".recipeLink"));
+                 $("#display").append(addname);
+                 addname.children(".btn").remove(); 
                 $("#shows").show();
             })
         });
