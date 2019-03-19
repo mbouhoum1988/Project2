@@ -1,61 +1,97 @@
 var searchQuery;
-      $("#searchRecipeButton").on("click", function(event) {
-        event.preventDefault();
-        searchQuery = $("#searchRecipe").val().trim();
+$("#searchRecipeButton").on("click", function(event) {
+  event.preventDefault();
+  searchQuery = $("#searchRecipe")
+    .val()
+    .trim();
 
-        var queryURL = "https://www.food2fork.com/api/search?key=f138a3cb85c879f8b2af9455ce4f2913&q=" + searchQuery;
+  var queryURL =
+    "https://www.food2fork.com/api/search?key=f138a3cb85c879f8b2af9455ce4f2913&q=" +
+    searchQuery;
 
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        })
-          .then(function(response) {
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+    var result = JSON.parse(response);
+    var total = 6;
 
-            var result = JSON.parse(response);
-            var total = 6;
+    $("#results").empty();
 
-            console.log(result.recipes);
+    for (var i = 0; i < total; i++) {
+      var recipe = result.recipes[i];
+      var recipeRow = $("<div class='row'></div>");
 
-            $("#results").empty();
+      var image_url = recipe.image_url;
+      var image = $("<img>");
+      image.addClass("insertImage keepElement");
+      image.attr("src", image_url);
 
-            for (var i = 0; i < total; i++) {
-              var recipe = result.recipes[i];
-              var recipeRow = $("<div class='row'></div>");
-              var btn = $("<button class='btn btn-default addbutton'>add to your list</button>")
-              var image_url = recipe.image_url;
-              var image = $("<img>");
-              image.addClass("insertImage keepElement");
-              image.attr("src", image_url);
+      var name = $("<h5>");
+      name.addClass("title");
+      name.html(recipe.title);
 
-              var name = $("<h5>");
-              name.addClass("title");
-              name.html(recipe.title);
+      var link = $("<a>" + recipe.title + "</a>");
+      link.addClass("keepElement recipeLink");
+      link.attr("href", recipe.source_url);
 
-              recipeRow.append(name);
-              recipeRow.append(image);
-              recipeRow.append(
-                $(`
-                <a class="keepElement recipeLink" href="${recipe.source_url}">
-                  ${recipe.title}
-                </a>
-              `));
-              recipeRow.append(btn);
+      var btn = $(
+        "<button class='btn btn-default addbutton'>add to your list</button>"
+      );
 
-              $("#results").append(recipeRow);
-            }
+      recipeRow.append(name);
+      recipeRow.append(image);
+      recipeRow.append(link);
+      recipeRow.append(btn);
 
-            $(".addbutton").on("click", function () {
-                // var addPost = {
-                     
-                // };
-                 var addname = $("<div>");
-                 addname.append($(this).parent().children(".title"));
-                 addname.append($(this).parent().children(".insertImage"));
-                 addname.append($(this).parent().children(".recipeLink"));
-                 $("#display").append(addname);
-                 addname.children(".btn").remove(); 
-                $("#shows").show();
-            })
-        });
+      $("#results").append(recipeRow);
+    }
 
-      });
+    $(".addbutton").on("click", function() {
+      var addname = $("<div>");
+      var addtitle = $(this)
+        .parent()
+        .children(".title");
+      var addimage = $(this)
+        .parent()
+        .children(".insertImage");
+      var addlink = $(this)
+        .parent()
+        .children(".recipeLink");
+      var addbtn = $(this)
+        .parent()
+        .children(".btn");
+
+      var datatitle = $(this)
+        .parent()
+        .children(".title")
+        .html();
+      var datalink = $(this)
+        .parent()
+        .children(".recipeLink")
+        .attr("href");
+
+      var addPost = {
+        text: datatitle,
+        description: datalink
+      };
+
+      console.log(addPost);
+
+      addname.append(addtitle);
+      addname.append(addimage);
+      addname.append(addlink);
+      addname.append(addbtn);
+
+      $("#display").append(addname);
+
+      addname.children(".btn").remove();
+      $("#shows").show();
+
+      $.ajax("/api/food", {
+        method: "post",
+        data: addPost
+      }).then(function(){});
+    });
+  });
+});
