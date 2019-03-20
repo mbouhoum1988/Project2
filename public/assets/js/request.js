@@ -6,7 +6,7 @@ $("#searchRecipeButton").on("click", function(event) {
     .trim();
 
   var queryURL =
-    "https://www.food2fork.com/api/search?key=f138a3cb85c879f8b2af9455ce4f2913&q=" +
+    "https://www.food2fork.com/api/search?key=db7b87a5ebb993d87acc528cc26d1f50&q=" +
     searchQuery;
 
   $.ajax({

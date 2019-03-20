@@ -10,14 +10,18 @@ once on the home page, click on the find recipes link, it will take you to the s
 
 
 
-[!]();
-
-
-[!]();
-
-
-[!]();
+[!](https://github.com/mbouhoum1988/Project2/blob/master/capture/capture1.png);
 
 
 
-[!]();
+[!](https://github.com/mbouhoum1988/Project2/blob/master/capture/capture2.png);
+
+
+
+[!](https://github.com/mbouhoum1988/Project2/blob/master/capture/capture3.png);
+
+
+[!](https://github.com/mbouhoum1988/Project2/blob/master/capture/capture4.png);
+
+
+[!](https://github.com/mbouhoum1988/Project2/blob/master/capture/capture5.png);
