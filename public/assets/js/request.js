@@ -5,35 +5,35 @@ $("#searchRecipeButton").on("click", function(event) {
     .val()
     .trim();
 
-  var queryURL =
-    "https://www.food2fork.com/api/search?key=db7b87a5ebb993d87acc528cc26d1f50&q=" +
-    searchQuery;
+  var queryURL = "https://api.edamam.com/search?q="; 
+  queryURL += searchQuery; 
+  queryURL += "&app_id=cfbcb06c&app_key=df0452d2212b0c38ac05a429fc61c3af";
 
+  console.log(queryURL);
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    var result = JSON.parse(response);
-    var total = 22;
+    var total = 9;
 
     $("#results").empty();
 
     for (var i = 0; i < total; i++) {
-      var recipe = result.recipes[i];
+      var recipes = response.hits[i];
       var recipeRow = $("<div class='row'></div>");
 
-      var image_url = recipe.image_url;
+      var imageUrl = recipes.recipe.image;
       var image = $("<img>");
       image.addClass("insertImage keepElement");
-      image.attr("src", image_url);
+      image.attr("src", imageUrl);
 
       var name = $("<h5>");
       name.addClass("title");
-      name.html(recipe.title);
+      name.html(recipes.recipe.label);
 
-      var link = $("<a>" + recipe.title + "</a>");
+      var link = $("<a>" + recipes.recipe.label + "</a>");
       link.addClass("keepElement recipeLink");
-      link.attr("href", recipe.source_url);
+      link.attr("href", recipes.recipe.url);
 
       var btn = $(
         "<button class='btn btn-default addbutton'>add to your list</button>"
