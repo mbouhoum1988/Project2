@@ -14,7 +14,7 @@ $("#searchRecipeButton").on("click", function(event) {
     method: "GET"
   }).then(function(response) {
     var result = JSON.parse(response);
-    var total = 6;
+    var total = 22;
 
     $("#results").empty();
 
@@ -44,11 +44,12 @@ $("#searchRecipeButton").on("click", function(event) {
       recipeRow.append(link);
       recipeRow.append(btn);
 
+      $("#resultsshow").show();
       $("#results").append(recipeRow);
     }
 
     $(".addbutton").on("click", function() {
-      var addname = $("<div>");
+      var addname = $("<div id='addname'>");
       var addtitle = $(this)
         .parent()
         .children(".title");
