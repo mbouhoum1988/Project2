@@ -70,6 +70,7 @@
   .mybutton{
     width: 70%;
   }
+
   
   @media (max-width:767px) {
     .features-boxed h2 {
