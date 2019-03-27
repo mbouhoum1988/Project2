@@ -15,7 +15,6 @@ $("#searchRecipeButton").on("click", function(event) {
     method: "GET"
   }).then(function(response) {
     var total = 9;
-
     $("#results").empty();
 
     for (var i = 0; i < total; i++) {

@@ -10,14 +10,6 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/assets/recipesearch.html"));
   });
 
-  app.get("/login", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/assets/login.html"));
-  });
-
-  app.get("/register", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/assets/signup.html"));
-  });
-
   app.get("*", function(req, res) {
     res.redirect("/");
   });
